@@ -1,0 +1,140 @@
+{% extends 'back/base_main.html' %}
+
+{% block title %}
+    文章 -  博客管理系统
+{% endblock %}
+
+{% block aactive %}
+    class="active"
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+      <form action="" method="post" >
+        <h1 class="page-header">操作</h1>
+        <ol class="breadcrumb">
+          <li><a href="{{ url_for('back.add_article') }}">增加文章</a></li>
+        </ol>
+        <h1 class="page-header">管理 <span class="badge">{{ count }}</span></h1>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th><span class="glyphicon glyphicon-th-large"></span> <span class="visible-lg">选择</span></th>
+                <th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">标题</span></th>
+                <th><span class="glyphicon glyphicon-list"></span> <span class="visible-lg">栏目</span></th>
+                <th><span class="glyphicon glyphicon-time"></span> <span class="visible-lg">日期</span></th>
+                <th><span class="glyphicon glyphicon-pencil"></span> <span class="visible-lg">操作</span></th>
+              </tr>
+            </thead>
+            <tbody id="tby">
+
+                {% for article in articles %}
+                <tr>
+                <td><input type="checkbox" class="input-control" name="checkbox[]" value="" /></td>
+                <td class="article-title">{{ article.title }}</td>
+                <td>{{ article.category.c_name }}</td>
+                <td>{{ article.create_time }}</td>
+                <td><a href="{{ url_for('back.update_article') }}?id={{ article.a_id }}">修改</a>
+                    <a class="del" >删除</a>
+                    {# {{ url_for('back.delete_article',id=article.a_id) }}#}
+                </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+        <footer class="message_footer">
+          <nav>
+            <div class="btn-toolbar operation" role="toolbar">
+              <div class="btn-group" role="group"> <a class="btn btn-default" onClick="select()">全选</a> <a class="btn btn-default" onClick="reverse()">反选</a> <a class="btn btn-default" onClick="noselect()">不选</a> </div>
+              <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="删除全部选中" name="checkbox_delete">删除</button>
+              </div>
+            </div>
+            <ul class="pagination pagenav">
+{#              <li class="disabled"><a aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>#}
+              <li class="active"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+{#              <li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>#}
+            </ul>
+          </nav>
+        </footer>
+      </form>
+    </div>
+{% endblock %}
+
+{% block scriptcode %}
+
+    <script>
+        $(function(){
+
+            $('.message_footer').find('li').click(function () {
+
+
+                $(this).addClass('active').siblings().removeClass('active');
+                var url = "{{ url_for('back.article') }}";
+                index = $(this).index();
+                $('#tby').empty('tr');
+                $.post(url,function (data) {
+
+                        console.log(data.code);
+
+                        limit = 5 * (index+1);
+                        offset = 5 * index;
+						for (var i=offset; i<limit; i++){
+
+						    var id = data.data[i].id;
+						    var title = data.data[i].title;
+						    var category = data.data[i].category;
+						    var create_time = data.data[i].create_time;
+
+                            tr = '<tr>'+
+                                '<td><input type="checkbox" class="input-control" name="checkbox[]" value="" /></td>' +
+                                '<td class="article-title">'+ title + '</td>' +
+                                '<td>'+category+'</td>' +
+                                '<td>'+create_time+'</td>' +
+                                '<td><a href="/back/update-article/?id='+ id +'">修改</a> '+
+                                '<a class="del" > 删除</a></td>'+ '</tr>';
+
+                            $(tr).appendTo('#tby');
+
+                        }
+
+                })
+
+
+            });
+
+
+            $('#tby').on('click',".del",function(){
+
+				$(this).parents('tr').remove();
+
+                $.ajax({
+					type : "get",
+					url: "{{ url_for('back.delete_article') }}",
+					data:{"title": $(this).parents('td').siblings('.article-title').html() },
+					success : function(data){
+						console.log(data.status);
+
+					},
+					error : function(data){
+						console.log('删除失败')
+
+					}
+                })
+
+            });
+
+        })
+    </script>
+
+{% endblock %}
+
+
+

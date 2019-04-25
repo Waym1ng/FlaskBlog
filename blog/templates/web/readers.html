@@ -1,0 +1,37 @@
+
+{% extends 'web/base_main.html' %}
+
+{% block title %}
+    tags
+{% endblock %}
+
+{% block section %}
+    <section class="container container-page">
+          <div class="pageside">
+            <div class="pagemenus">
+              <ul class="pagemenu">
+                <li><a href="{{ url_for('web.tags') }}">标签云</a></li>
+                <li><a href="{{ url_for('web.readers') }}">读者墙</a></li>
+                <li><a href="{{ url_for('web.links') }}">友情链接</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="content">
+            <header class="article-header">
+              <h1 class="article-title">读者墙</h1>
+            </header>
+            <div class="readers"> <a class="item-readers item-readers-1" target="_blank" href="" rel="nofollow">
+              <h4>【金牌读者】<small>评论：123</small></h4>
+              <img class="avatar" height="36" width="36" src="/static/web/images/icon/icon.png" alt=""><strong>异清轩</strong>http://www.ylsat.com/</a> <a class="item-readers item-readers-2" target="_blank" href="" rel="nofollow">
+              <h4>【银牌读者】<small>评论：12</small></h4>
+              <img class="avatar" height="36" width="36" src="/static/web/images/icon/icon.png" alt=""><strong>异清轩</strong>http://www.ylsat.com/</a> <a class="item-readers item-readers-3" target="_blank" href="" rel="nofollow">
+              <h4>【铜牌读者】<small>评论：8</small></h4>
+              <img class="avatar" height="36" width="36" src="/static/web/images/icon/icon.png" alt=""><strong>异清轩</strong>http://www.ylsat.com/</a> <a class="item-readers item-readers-4" target="_blank" href="" rel="nofollow">
+              <h4>【普通读者】<small>评论：1</small></h4>
+              <img class="avatar" height="36" width="36" src="/static/web/images/icon/icon.png" alt=""><strong>异清轩</strong>http://www.ylsat.com/</a> </div>
+          </div>
+    </section>
+{% endblock %}
+
+
+

@@ -1,0 +1,168 @@
+
+{% extends 'back/base.html' %}
+
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/back/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/back/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/back/css/font-awesome.min.css">
+    <link rel="apple-touch-icon-precomposed" href="/static/back/images/icon/icon.png">
+    <link rel="shortcut icon" href="/static/back/images/icon/favicon.ico">
+{% endblock %}
+
+{% block js1 %}
+    <script src="/static/back/js/jquery-2.1.4.min.js"></script>
+{% endblock %}
+
+{% block header %}
+      <header>
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">切换导航</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+              <a class="navbar-brand" href="/">YlsatCMS</a> </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="">消息 <span class="badge">1</span></a></li>
+                <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user.username }}<span class="caret"></span></a>
+                  <ul class="dropdown-menu dropdown-menu-left">
+                    <li><a title="查看或修改个人信息" data-toggle="modal" data-target="#seeUserInfo">个人信息</a></li>
+                    <li><a title="查看您的登录记录" data-toggle="modal" data-target="#seeUserLoginlog">登录记录</a></li>
+                  </ul>
+                </li>
+                <li><a href="{{ url_for('back.logout') }}" onClick="if(!confirm('是否确认退出？'))return false;">退出登录</a></li>
+                <li><a data-toggle="modal" data-target="#WeChat">帮助</a></li>
+              </ul>
+              <form action="" method="post" class="navbar-form navbar-right" role="search">
+                <div class="input-group">
+                  <input type="text" class="form-control" autocomplete="off" placeholder="键入关键字搜索" maxlength="15">
+                  <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit">搜索</button>
+                  </span> </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </header>
+{% endblock %}
+
+{% block aside %}
+    <aside class="col-sm-3 col-md-2 col-lg-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li {% block iactive %}{% endblock %}><a href="/back/">报告</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li {% block aactive %}{% endblock %}><a href="{{ url_for('back.article') }}">文章</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li {% block cactive %}{% endblock %}>><a href="{{ url_for('back.category') }}">栏目</a></li>
+          </ul>
+        </aside>
+{% endblock %}
+
+
+
+{% block information %}
+    <!--个人信息模态框-->
+    <div class="modal fade" id="seeUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <form action="" method="post">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" >个人信息</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table" style="margin-bottom:0px;">
+                <thead>
+                  <tr> </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td wdith="20%">姓名:</td>
+                    <td width="80%"><input type="text" value="王雨" class="form-control" name="truename" maxlength="10" autocomplete="off" /></td>
+                  </tr>
+                  <tr>
+                    <td wdith="20%">用户名:</td>
+                    <td width="80%"><input type="text" value="{{ request.user.username }}" class="form-control" name="username" maxlength="10" autocomplete="off" /></td>
+                  </tr>
+                  <tr>
+                    <td wdith="20%">旧密码:</td>
+                    <td width="80%"><input type="password" class="form-control" name="old_password" maxlength="18" autocomplete="off" /></td>
+                  </tr>
+                  <tr>
+                    <td wdith="20%">新密码:</td>
+                    <td width="80%"><input type="password" class="form-control" name="password" maxlength="18" autocomplete="off" /></td>
+                  </tr>
+                  <tr>
+                    <td wdith="20%">确认密码:</td>
+                    <td width="80%"><input type="password" class="form-control" name="new_password" maxlength="18" autocomplete="off" /></td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr></tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--个人登录记录模态框-->
+    <div class="modal fade" id="seeUserLoginlog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" >登录记录</h4>
+          </div>
+          <div class="modal-body">
+              <table class="table" style="margin-bottom:0px;">
+                <thead>
+                  <tr>
+                    <th>登录IP</th>
+                    <th>登录时间</th>
+                    <th>状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>::1:55570</td>
+                    <td>2016-01-08 15:50:28</td>
+                    <td>成功</td>
+                  </tr>
+                  <tr>
+                    <td>::1:64377</td>
+                    <td>2016-01-08 10:27:44</td>
+                    <td>成功</td>
+                  </tr>
+                  <tr>
+                    <td>::1:64027</td>
+                    <td>2016-01-08 10:19:25</td>
+                    <td>成功</td>
+                  </tr>
+                  <tr>
+                    <td>::1:57081</td>
+                    <td>2016-01-06 10:35:12</td>
+                    <td>成功</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block js2 %}
+    <script src="/static/back/js/bootstrap.min.js"></script>
+    <script src="/static/back/js/admin-scripts.js"></script>
+{% endblock %}
+

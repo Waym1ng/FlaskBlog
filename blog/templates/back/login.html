@@ -1,0 +1,42 @@
+{% extends 'back/base.html' %}
+
+{% block title %}
+    登陆 -  博客管理系统
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/back/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/back/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/back/css/login.css">
+    <link rel="apple-touch-icon-precomposed" href="/static/back/images/icon/icon.png">
+    <link rel="shortcut icon" href="/static/back/images/icon/favicon.ico">
+{% endblock %}
+
+{% block js1 %}
+    <script src="/static/back/js/jquery-2.1.4.min.js"></script>
+{% endblock %}
+
+{% block logincontent %}
+    <div class="container">
+        <div class="siteIcon"><img src="/static/back/images/icon/icon.png" alt="" data-toggle="tooltip"
+                                   data-placement="top" title="欢迎使用异清轩博客管理系统" draggable="false"/></div>
+        <form action="/back/login/" method="post" autocomplete="off" class="form-signin">
+            <h2 class="form-signin-heading">管理员登录</h2>
+            <label for="userName" class="sr-only">用户名</label>
+            <input type="text" id="userName" name="username" class="form-control" placeholder="请输入用户名" required
+                   autofocus autocomplete="off" maxlength="10">
+            <label for="userPwd" class="sr-only">密码</label>
+            <input type="password" id="userPwd" name="pwd" class="form-control" placeholder="请输入密码" required
+                   autocomplete="off" maxlength="18">
+            <div  class="siteIcon" style="color: red"><h5>{{ error }}</h5></div>
+            <a href="">
+                <button class="btn btn-lg btn-primary btn-block" type="submit" id="signinSubmit">登录</button>
+            </a>
+        </form>
+        <div class="footer">
+            <p><a href="" data-toggle="tooltip" data-placement="left" title="不知道自己在哪?">回到后台 →</a></p>
+        </div>
+
+    </div>
+
+{% endblock %}

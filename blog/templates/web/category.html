@@ -1,0 +1,56 @@
+{% extends 'web/base_main.html' %}
+
+
+{% block title %}
+    栏目页面
+{% endblock %}
+
+{% block nav %}
+    <ul class="nav navbar-nav navbar-right">
+          <li class="hidden-index active"><a data-cont="异清轩首页" href="{{ url_for('web.index') }}">异清轩首页</a></li>
+          {% for category in categories %}
+              <li><a href="{{ url_for('web.category') }}?id={{ category.c_id }}">
+                  {{ category.c_name }}</a>
+              </li>
+          {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrap">
+    <div class="content">
+
+
+        {% for art in categories[id].arts %}
+        {#       categories[id].arts的id为栏目id 作为下标去对应的栏目     #}
+        <article class="excerpt excerpt-{{ id }}"><a class="focus" href="{{ url_for('web.article') }}?id={{ art.a_id }}" title=""><img class="thumb" data-original="/static/web/images/excerpt.jpg" src="/static/web/images/excerpt.jpg" alt=""></a>
+            <header><a class="cat" href="">{{ art.category.c_name }}<i></i></a>
+              <h2>
+                  <a href="{{ url_for('web.article') }}?id={{ art.a_id }}" title="">{{ art.title }}</a>
+                    {#   art.a_id 为文章的id 作为参数 去渲染该id的文章   #}
+              </h2>
+            </header>
+            <p class="meta">
+              <time class="time"><i class="glyphicon glyphicon-time"></i>{{ art.create_time }}</time>
+              <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共120人围观</span> <a class="comment" href=""><i class="glyphicon glyphicon-comment"></i>  0条评论</a></p>
+            <p class="note">{{ art.desc }}
+
+        </article>
+        {% endfor %}
+
+
+      <nav class="pagination" style="display: none;">
+        <ul>
+          <li class="prev-page"></li>
+          <li class="active"><span>1</span></li>
+          <li><a href="?page=2">2</a></li>
+          <li class="next-page"><a href="?page=2">下一页</a></li>
+          <li><span>共 2 页</span></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+{% endblock %}
+
+
+
