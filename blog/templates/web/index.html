@@ -29,15 +29,15 @@
                     <li data-target="#focusslide" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner" role="listbox">
-                    <div class="item active"><a href="" target="_blank"><img
+                    <div class="item active"><a href="#" target="_blank"><img
                             src="/static/web/images/banner/banner_01.jpg" alt="" class="img-responsive"></a>
                         <!--<div class="carousel-caption"> </div>-->
                     </div>
-                    <div class="item"><a href="" target="_blank"><img src="/static/web/images/banner/banner_02.jpg"
+                    <div class="item"><a href="#" target="_blank"><img src="/static/web/images/banner/banner_02.jpg"
                                                                       alt="" class="img-responsive"></a>
                         <!--<div class="carousel-caption"> </div>-->
                     </div>
-                    <div class="item"><a href="" target="_blank"><img src="/static/web/images/banner/banner_03.jpg"
+                    <div class="item"><a href="#" target="_blank"><img src="/static/web/images/banner/banner_03.jpg"
                                                                       alt="" class="img-responsive"></a>
                         <!--<div class="carousel-caption"> </div>-->
                     </div>
@@ -55,11 +55,11 @@
             </article>
             <div class="title">
                 <h3>最新发布</h3>
-                <div class="more"><a href="">PHP</a><a href="">JavaScript</a><a href="">EmpireCMS</a><a
-                        href="">Apache</a><a href="">MySQL</a></div>
+                <div class="more"><a href="#">PHP</a><a href="#">JavaScript</a><a href="#">EmpireCMS</a><a
+                        href="#">Apache</a><a href="#">MySQL</a></div>
             </div>
             {% for article in articles %}
-            <article class="excerpt excerpt-2">
+            <article class="excerpt excerpt-{{ loop.index }}">
                 <a class="focus" href="{{ url_for('web.article') }}?id={{ article.a_id }}" title=""><img class="thumb" data-original="/static/web/images/excerpt.jpg" src="/static/web/images/excerpt.jpg" alt=""></a>
                 <header><a class="cat" href="">{{ article.category.c_name }}<i></i></a>
                     <h2><a href="{{ url_for('web.article') }}?id={{ article.a_id }}" title="">{{ article.title }}</a></h2>
