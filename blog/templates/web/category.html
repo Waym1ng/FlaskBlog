@@ -20,10 +20,16 @@
     <div class="content-wrap">
     <div class="content">
 
-
-        {% for art in categories[id].arts %}
+        <div class="title">
+                <h3>最新发布</h3>
+                <div class="more"><a href="#">PHP</a><a href="#">JavaScript</a><a href="#">EmpireCMS</a><a
+                        href="#">Apache</a><a href="#">MySQL</a></div>
+        </div>
+        <hr />
+        {#    categories[id].arts[::-1] 为了让文章显示的时候 后面写的文章显示在前面    #}
+        {% for art in categories[id].arts[::-1] %}
         {#       categories[id].arts的id为栏目id 作为下标去对应的栏目     #}
-        <article class="excerpt excerpt-{{ id }}"><a class="focus" href="{{ url_for('web.article') }}?id={{ art.a_id }}" title=""><img class="thumb" data-original="/static/web/images/excerpt.jpg" src="/static/web/images/excerpt.jpg" alt=""></a>
+            <article class="excerpt excerpt-{{ id }}"><a class="focus" href="{{ url_for('web.article') }}?id={{ art.a_id }}" title=""><img class="thumb" data-original="/static/web/images/excerpt.jpg" src="/static/web/images/excerpt.jpg" alt=""></a>
             <header><a class="cat" href="">{{ art.category.c_name }}<i></i></a>
               <h2>
                   <a href="{{ url_for('web.article') }}?id={{ art.a_id }}" title="">{{ art.title }}</a>
@@ -35,7 +41,7 @@
               <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共120人围观</span> <a class="comment" href=""><i class="glyphicon glyphicon-comment"></i>  0条评论</a></p>
             <p class="note">{{ art.desc }}
 
-        </article>
+            </article>
         {% endfor %}
 
 

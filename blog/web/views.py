@@ -9,7 +9,7 @@ blue2 = Blueprint('web',__name__)
 @blue2.route('/')
 def index():
 
-     articles = Article.query.filter().all()
+     articles = Article.query.order_by(-Article.a_id).all()
      categories = Category.query.filter().all()
 
      return render_template('web/index.html',articles=articles,categories=categories)
@@ -29,12 +29,12 @@ def article():
 @blue2.route('/category/')
 def category():
     #获取栏目的ID
-    id = request.args.get('id')
+    id = int(request.args.get('id'))
     categories = Category.query.filter().all()
     #用ID来获取某个栏目下的文章
-    # category = categories[0]
+    # category = categories[0] 这是一个Article对象
     # print(category.arts)
-    return render_template('web/category.html',categories=categories,id=int(id)-1)
+    return render_template('web/category.html',categories=categories,id=id-1)
 
 
 @blue2.route('/tags/')
