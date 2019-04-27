@@ -6,7 +6,7 @@
 
 {% block nav %}
     <ul class="nav navbar-nav navbar-right">
-          <li class="hidden-index active"><a data-cont="异清轩首页" href="{{ url_for('web.index',page=1) }}">异清轩首页</a></li>
+          <li class="hidden-index"><a data-cont="异清轩首页" href="{{ url_for('web.index',page=1) }}">异清轩首页</a></li>
           {% for category in categories %}
               <li><a href="{{ url_for('web.category') }}?id={{ category.c_id }}">
                   {{ category.c_name }}</a>
@@ -77,11 +77,10 @@
             <nav class="pagination">
                 <ul class="pagination" id="index_nav">
     {#              <li class="disabled"><a aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>#}
-                  <li><a href="{{ url_for('web.index',page=1) }}">1</a></li>
-                  <li><a href="{{ url_for('web.index',page=2) }}">2</a></li>
-                  <li><a href="{{ url_for('web.index',page=3) }}">3</a></li>
-                  <li><a href="{{ url_for('web.index',page=4) }}">4</a></li>
-                  <li><a href="{{ url_for('web.index',page=5) }}">5</a></li>
+                    {% for i in pageList %}
+                        <li><a href="{{ url_for('web.index',page=i)}}">{{ i  }}</a></li>
+                    {% endfor %}
+
     {#              <li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>#}
                 </ul>
             </nav>
@@ -96,7 +95,8 @@
     <script>
         $(function(){
 
-            $('#index_nav').find('li').eq({{ page }}-1).addClass('active')
+            $('#index_nav').find('li').eq({{ page }}-1).addClass('active');
+            $('.navbar-nav li').eq(0).addClass('active')
         })
     </script>
 

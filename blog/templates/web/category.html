@@ -5,9 +5,21 @@
     栏目页面
 {% endblock %}
 
+{% block cssjs %}
+    {{ super() }}
+    <script>
+        $(function(){
+
+            $('.navbar-nav li').eq({{ id + 1  }}).addClass('active')
+
+        })
+
+    </script>
+{% endblock %}
+
 {% block nav %}
     <ul class="nav navbar-nav navbar-right">
-          <li class="hidden-index active"><a data-cont="异清轩首页" href="{{ url_for('web.index',page=1) }}">异清轩首页</a></li>
+          <li class="hidden-index"><a data-cont="异清轩首页" href="{{ url_for('web.index',page=1) }}">异清轩首页</a></li>
           {% for category in categories %}
               <li><a href="{{ url_for('web.category') }}?id={{ category.c_id }}">
                   {{ category.c_name }}</a>
