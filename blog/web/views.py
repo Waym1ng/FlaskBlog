@@ -1,5 +1,5 @@
 
-from flask import Blueprint, render_template, url_for,request
+from flask import Blueprint, render_template, url_for, request, redirect
 
 from back.models import Article, Category
 
@@ -7,12 +7,17 @@ blue2 = Blueprint('web',__name__)
 
 
 @blue2.route('/')
-def index():
+def re():
 
-     articles = Article.query.order_by(-Article.a_id).all()
+     return redirect(url_for('web.index',page=1))
+
+
+@blue2.route('/index/page/<int:page>')
+def index(page):
+     # page = int(request.args.get('page'))
+     articles = Article.query.order_by(Article.a_id.desc()).offset((page-1)*4).limit(4).all()
      categories = Category.query.filter().all()
-
-     return render_template('web/index.html',articles=articles,categories=categories)
+     return render_template('web/index.html',articles=articles,categories=categories,page=page)
 
 
 @blue2.route('/article/')

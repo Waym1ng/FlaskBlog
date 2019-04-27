@@ -6,7 +6,7 @@
 
 {% block nav %}
     <ul class="nav navbar-nav navbar-right">
-          <li class="hidden-index active"><a data-cont="异清轩首页" href="{{ url_for('web.index') }}">异清轩首页</a></li>
+          <li class="hidden-index active"><a data-cont="异清轩首页" href="{{ url_for('web.index',page=1) }}">异清轩首页</a></li>
           {% for category in categories %}
               <li><a href="{{ url_for('web.category') }}?id={{ category.c_id }}">
                   {{ category.c_name }}</a>
@@ -74,16 +74,31 @@
                 </p>
             </article>
             {% endfor %}
-            <nav class="pagination" style="display: none;">
-                <ul>
-                    <li class="prev-page"></li>
-                    <li class="active"><span>1</span></li>
-                    <li><a href="?page=2">2</a></li>
-                    <li class="next-page"><a href="?page=2">下一页</a></li>
-                    <li><span>共 2 页</span></li>
+            <nav class="pagination">
+                <ul class="pagination" id="index_nav">
+    {#              <li class="disabled"><a aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>#}
+                  <li><a href="{{ url_for('web.index',page=1) }}">1</a></li>
+                  <li><a href="{{ url_for('web.index',page=2) }}">2</a></li>
+                  <li><a href="{{ url_for('web.index',page=3) }}">3</a></li>
+                  <li><a href="{{ url_for('web.index',page=4) }}">4</a></li>
+                  <li><a href="{{ url_for('web.index',page=5) }}">5</a></li>
+    {#              <li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>#}
                 </ul>
             </nav>
+
         </div>
     </div>
+{% endblock %}
+
+
+{% block cssjs %}
+    {{ super() }}
+    <script>
+        $(function(){
+
+            $('#index_nav').find('li').eq({{ page }}-1).addClass('active')
+        })
+    </script>
+
 {% endblock %}
 

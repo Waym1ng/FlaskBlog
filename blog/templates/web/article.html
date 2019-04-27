@@ -7,7 +7,7 @@
 
 {% block nav %}
     <ul class="nav navbar-nav navbar-right">
-          <li class="hidden-index active"><a data-cont="异清轩首页" href="{{ url_for('web.index') }}">异清轩首页</a></li>
+          <li class="hidden-index active"><a data-cont="异清轩首页" href="{{ url_for('web.index',page=1) }}">异清轩首页</a></li>
           {% for category in categories %}
               <li><a href="{{ url_for('web.category') }}?id={{ category.c_id }}">
                   {{ category.c_name }}</a>
@@ -20,7 +20,7 @@
     <div class="content-wrap">
         <div class="content">
             <header class="article-header">
-                <h1 class="article-title"><a href="article.html">{{ article.title }}</a></h1>
+                <h1 class="article-title"><a href="">{{ article.title }}</a></h1>
                 <div class="article-meta"> <span class="item article-meta-time">
           <time class="time" data-toggle="tooltip" data-placement="bottom" title=""><i
                   class="glyphicon glyphicon-time"></i>{{ article.create_time }}</time>
@@ -41,7 +41,7 @@
                     <h3>相关推荐</h3>
                 </div>
                 <ul>
-                    <li><a href="article.html">php如何判断一个日期的格式是否正确</a></li>
+                    <li><a href="">php如何判断一个日期的格式是否正确</a></li>
                 </ul>
             </div>
             <div class="title" id="comment">

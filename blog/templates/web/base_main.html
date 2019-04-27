@@ -34,7 +34,7 @@
       </div>
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <h1 class="logo hvr-bounce-in"><a href="{{ url_for('web.index') }}" title=""><img src="/static/web/images/logo.png" alt=""></a></h1>
+        <h1 class="logo hvr-bounce-in"><a href="{{ url_for('web.index',page=1) }}" title=""><img src="/static/web/images/logo.png" alt=""></a></h1>
       </div>
       <div class="collapse navbar-collapse" id="header-navbar">
             {% block nav %}
@@ -151,7 +151,10 @@
 
 {% block footer %}
     <div class="container">
-    <p>&copy; 2016 <a href="">ylsat.com</a> &nbsp; <a href="#" target="_blank" rel="nofollow">豫ICP备20151109-1</a> &nbsp; &nbsp; <a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
+        <hr />
+    <p>&copy; 2016 <a href="">ylsat.com</a> &nbsp;
+        <a href="#" target="_blank" rel="nofollow">豫ICP备20151109-1</a> &nbsp; &nbsp;
+        <a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
   </div>
     <div id="gotop"><a class="gotop"></a></div>
 {% endblock %}
