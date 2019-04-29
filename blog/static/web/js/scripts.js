@@ -153,47 +153,6 @@ $(window).scroll(function () {
     }
 });
 
-//禁止右键菜单
-/*window.oncontextmenu = function(){
-	return false;
-};*/
-
-/*自定义右键菜单*/
-(function () {
-    var oMenu = document.getElementById("rightClickMenu");
-    var aLi = oMenu.getElementsByTagName("li");
-	//加载后隐藏自定义右键菜单
-	//oMenu.style.display = "none";
-    //菜单鼠标移入/移出样式
-    for (i = 0; i < aLi.length; i++) {
-        //鼠标移入样式
-        aLi[i].onmouseover = function () {
-            $(this).addClass('rightClickMenuActive');
-			//this.className = "rightClickMenuActive";
-        };
-        //鼠标移出样式
-        aLi[i].onmouseout = function () {
-            $(this).removeClass('rightClickMenuActive');
-			//this.className = "";
-        };
-    }
-    //自定义菜单
-    document.oncontextmenu = function (event) {
-		$(oMenu).fadeOut(0);
-        var event = event || window.event;
-        var style = oMenu.style;
-        $(oMenu).fadeIn(300);
-		//style.display = "block";
-        style.top = event.clientY + "px";
-        style.left = event.clientX + "px";
-        return false;
-    };
-    //页面点击后自定义菜单消失
-    document.onclick = function () {
-        $(oMenu).fadeOut(100);
-		//oMenu.style.display = "none"
-    }
-})();
 
 /*禁止键盘操作*/
 document.onkeydown=function(event){
@@ -251,8 +210,6 @@ function replace_em(str){
 //Console
 try {
     if (window.console && window.console.log) {
-        console.log("\n欢迎访问异清轩博客！\n\n在本站可以看到前端技术，后端程序，网站内容管理系统等文章；\n\n还有我的程序人生！！！\n");
-        console.log("\n请记住我们的网址：%c www.ylsat.com", "color:red");
-        console.log("\nPOWERED BY WY ALL RIGHTS RESERVED");
+        console.log("\n欢迎访问我的博客！");
     }
 } catch (e) {};
